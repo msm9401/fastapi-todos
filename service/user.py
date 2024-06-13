@@ -30,3 +30,10 @@ class UserService:
             self.secret_key,
             algorithm=self.jwt_algorithm,
         )
+
+    def decode_jwt(self, access_token: str) -> str:
+        payload: dict = jwt.decode(
+            access_token, self.secret_key, algorithms=[self.jwt_algorithm]
+        )
+        # expire 로직 필요
+        return payload["sub"]  # username
